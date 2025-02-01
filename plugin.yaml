@@ -1,0 +1,43 @@
+version: 0.1
+required_trunk_version: ">=1.22.9"
+
+# Applicable linters and actions will run with these runtime versions.
+runtimes:
+  enabled:
+    - node@18.20.5
+    - python@3.10.8
+
+lint:
+  # By sourcing this plugin, repos will enable these linters.
+  enabled:
+    # All:
+    # - git-diff-check
+    # GitHub:
+    - actionlint@1.7.7
+    # Lua:
+    - stylua@2.0.2
+    # Markdown:
+    - markdownlint@0.44.0
+    - markdown-link-check@3.13.6
+    # Markdown+YAML:
+    - prettier@3.4.2
+    # Security:
+    - checkov@3.2.360
+    - trufflehog@3.88.4
+    # YAML:
+    - yamllint@1.35.1
+
+  # Sourcing repos will have these configs available to applicable linters.
+  exported_configs:
+    - configs:
+        - configs/.markdownlint.yaml
+        - configs/.yamllint.yaml
+        - configs/stylua.toml
+
+# By sourcing this plugin, repos will enable these actions.
+actions:
+  enabled:
+    - trunk-cache-prune
+    - trunk-upgrade-available
+    - trunk-check-pre-push
+    - trunk-fmt-pre-commit
